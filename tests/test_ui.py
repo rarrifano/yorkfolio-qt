@@ -78,7 +78,7 @@ class WindowTests(unittest.TestCase):
 
     def test_empty_portfolio_opens_on_data_tab(self):
         win = self.open()
-        self.assertIs(win.tabs.currentWidget(), win.dados)
+        self.assertIs(win.tabs.currentWidget().widget(), win.dados)
 
     def test_demo_portfolio_populates_every_tab(self):
         demo.build(str(self.path))
@@ -88,6 +88,7 @@ class WindowTests(unittest.TestCase):
         self.assertGreater(win.extrato.model.rowCount(), 0)
         self.assertGreater(win.proventos.assets.rowCount(), 0)
         self.assertTrue(wait(lambda: win.ir.months.rowCount() > 0), "IR tab never loaded")
+        self.assertLess(win.minimumSizeHint().height(), 600, "pages must scroll so the window fits small screens")
         for i in range(win.tabs.count()):
             win.tabs.setCurrentIndex(i)
             win.grab()  # exercises paint code

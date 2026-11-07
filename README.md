@@ -47,7 +47,8 @@ positive/negative tones; charts take their colors from the active palette.
 
 Also: REUSE-compliant licensing (SPDX headers, `LICENSES/`, `REUSE.toml`), AppStream metadata and desktop file
 validated in CI, Qt's own translations loaded for the user's locale, F11 full screen, accessible names on the
-custom-painted charts, and `.xlsx` files accepted as command-line arguments / "Open with".
+custom-painted charts, `.xlsx` files accepted as command-line arguments / "Open with", and tab pages that scroll
+instead of imposing a tall window, so it fits small screens.
 The UI strings themselves are Portuguese-only for now (no `tr()`/translation catalogs yet).
 
 ## Flatpak

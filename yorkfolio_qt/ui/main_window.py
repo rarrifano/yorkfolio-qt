@@ -7,7 +7,18 @@ from pathlib import Path
 
 from PySide6.QtCore import QSettings, Qt
 from PySide6.QtGui import QAction, QActionGroup, QGuiApplication, QIcon, QKeySequence
-from PySide6.QtWidgets import QApplication, QFileDialog, QLabel, QMainWindow, QMessageBox, QTabWidget, QToolBar
+from PySide6.QtWidgets import (
+    QApplication,
+    QFileDialog,
+    QFrame,
+    QLabel,
+    QMainWindow,
+    QMessageBox,
+    QScrollArea,
+    QTabWidget,
+    QToolBar,
+    QWidget,
+)
 
 from .. import __version__, db, service
 from . import theme
@@ -42,7 +53,7 @@ class MainWindow(QMainWindow):
         self.extrato, self.dados = ExtratoTab(self), DadosTab(self)
         self.views = [self.carteira, self.proventos, self.balanceamento, self.ir, self.extrato, self.dados]
         for view, name in zip(self.views, ("Carteira", "Proventos", "Balanceamento", "IR", "Extrato", "Dados"), strict=True):
-            self.tabs.addTab(view, name)
+            self.tabs.addTab(self._scrollable(view), name)
         self.setCentralWidget(self.tabs)
 
         self._build_actions()
@@ -53,6 +64,19 @@ class MainWindow(QMainWindow):
         if geometry := self.settings.value("geometry"):
             self.restoreGeometry(geometry)
         self.reload()
+
+    @staticmethod
+    def _scrollable(view: QWidget) -> QScrollArea:
+        """Tab page that scrolls when the window is short, instead of imposing its height on the window."""
+        area = QScrollArea()
+        area.setWidget(view)
+        area.setWidgetResizable(True)
+        area.setFrameShape(QFrame.NoFrame)
+        area.setFocusPolicy(Qt.NoFocus)  # no extra Tab stop: keyboard focus goes straight to the page's widgets
+        return area
+
+    def show_view(self, view: QWidget) -> None:
+        self.tabs.setCurrentIndex(self.views.index(view))
 
     # ------------------------------------------------------------ menus & toolbar (KDE HIG layout)
     def _action(self, text, slot, icon=None, shortcut=None, checkable=False) -> QAction:
@@ -150,7 +174,7 @@ class MainWindow(QMainWindow):
             view.set_state(state)
         self.dados.show_imports(self.import_results)
         if not (state["counts"]["trades"] + state["counts"]["movements"] + state["counts"]["manual"]):
-            self.tabs.setCurrentWidget(self.dados)
+            self.show_view(self.dados)
             self.statusBar().showMessage("Comece importando os extratos Excel da B3 (Negociação e Movimentação).")
 
     # ------------------------------------------------------------ actions
@@ -171,7 +195,7 @@ class MainWindow(QMainWindow):
 
         def done(results):
             self.import_results = results
-            self.tabs.setCurrentWidget(self.dados)
+            self.show_view(self.dados)
             if any("error" not in r and r["inserted"] for r in results):
                 self.refresh_market()
 
