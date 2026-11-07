@@ -11,6 +11,7 @@ from pathlib import Path
 
 os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 
+from PySide6.QtCore import QSettings  # noqa: E402
 from PySide6.QtWidgets import QApplication  # noqa: E402
 
 from tests.test_logic import MOV_HEADER, NEG_HEADER, make_xlsx  # noqa: E402
@@ -19,6 +20,10 @@ from yorkfolio_qt.ui import fmt, theme  # noqa: E402
 from yorkfolio_qt.ui.main_window import MainWindow  # noqa: E402
 
 app = QApplication.instance() or QApplication([])
+app.setOrganizationName("yorkfolio")
+app.setApplicationName("yorkfolio-qt")
+_settings_dir = tempfile.TemporaryDirectory()  # windows save geometry on close: keep the user's real settings untouched
+QSettings.setPath(QSettings.NativeFormat, QSettings.UserScope, _settings_dir.name)
 
 
 def wait(cond, timeout=15.0):
@@ -53,18 +58,23 @@ class NativeTests(unittest.TestCase):
 
 class WindowTests(unittest.TestCase):
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
-        self.path = Path(self.tmp.name) / "p.db"
+        tmp = tempfile.TemporaryDirectory()
+        self.addCleanup(tmp.cleanup)  # cleanups run last-in first-out: after the windows below are idle and closed
+        self.dir = Path(tmp.name)
+        self.path = self.dir / "p.db"
         theme.apply("light")
-
-    def tearDown(self):
-        self.tmp.cleanup()
 
     def open(self) -> MainWindow:
         win = MainWindow(self.path)
-        self.addCleanup(win.close)
+        self.addCleanup(self.close, win)
         self.assertTrue(wait(lambda: win.state is not None), "state never loaded")
         return win
+
+    def close(self, win: MainWindow) -> None:
+        # Every reload also starts background work (the IR tab loads its year), so a worker can still be
+        # queued when a test's condition is met. Deleting the database under it made the suite flaky.
+        self.assertTrue(wait(lambda: win._pending == 0), "background work never finished")
+        win.close()
 
     def test_empty_portfolio_opens_on_data_tab(self):
         win = self.open()
@@ -103,7 +113,7 @@ class WindowTests(unittest.TestCase):
         neg = make_xlsx([NEG_HEADER, ["05/03/2024", "Compra", "Mercado à Vista", "", "XP", "PETR4", 100, 30.0, 3000.0]])
         files = []
         for name, data in (("movimentacao.xlsx", mov), ("negociacao.xlsx", neg), ("broken.xlsx", b"nope")):
-            f = Path(self.tmp.name) / name
+            f = self.dir / name
             f.write_bytes(data)
             files.append(f)
         win = self.open()
