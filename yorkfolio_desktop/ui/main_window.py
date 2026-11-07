@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from PySide6.QtCore import QSettings, Qt
-from PySide6.QtGui import QAction, QIcon
+from PySide6.QtGui import QAction, QActionGroup, QGuiApplication, QIcon, QKeySequence
 from PySide6.QtWidgets import QApplication, QFileDialog, QLabel, QMainWindow, QMessageBox, QTabWidget, QToolBar
 
 from .. import __version__, db, service
@@ -42,26 +42,63 @@ class MainWindow(QMainWindow):
             self.tabs.addTab(view, name)
         self.setCentralWidget(self.tabs)
 
-        bar = QToolBar("Ações")
-        bar.setMovable(False)
-        self.addToolBar(bar)
-        self.act_import = self._action(bar, "Importar B3…", self.import_dialog, "Ctrl+O")
-        self.act_market = self._action(bar, "Atualizar cotações", lambda: self.refresh_market(), "F5")
-        bar.addSeparator()
-        self.act_theme = self._action(bar, "Tema claro/escuro", self.toggle_theme, "Ctrl+T")
-        self.act_about = self._action(bar, "Sobre", self.about)
+        self._build_actions()
         self.status = QLabel("")
         self.statusBar().addPermanentWidget(self.status)
 
+        QGuiApplication.styleHints().colorSchemeChanged.connect(lambda *_: self.state and self._show_state(self.state))
+        if geometry := self.settings.value("geometry"):
+            self.restoreGeometry(geometry)
         self.reload()
 
-    def _action(self, bar, text, slot, shortcut=None) -> QAction:
-        act = QAction(text, self)
+    # ------------------------------------------------------------ menus & toolbar (KDE HIG layout)
+    def _action(self, text, slot, icon=None, shortcut=None, checkable=False) -> QAction:
+        act = QAction(QIcon.fromTheme(icon) if icon else QIcon(), text, self)
         act.triggered.connect(lambda _=False: slot())
-        if shortcut:
+        if shortcut is not None:
             act.setShortcut(shortcut)
-        bar.addAction(act)
+        act.setCheckable(checkable)
         return act
+
+    def _build_actions(self) -> None:
+        SK = QKeySequence
+        self.act_import = self._action("&Importar extratos da B3…", self.import_dialog, "document-import", SK.Open)
+        self.act_quit = self._action("&Sair", self.close, "application-exit", SK.Quit)
+        self.act_market = self._action("&Atualizar cotações", lambda: self.refresh_market(), "view-refresh", SK.Refresh)
+        self.act_history = self._action("Rebaixar &histórico de preços", lambda: self.refresh_market(force=True), "download")
+        self.act_about = self._action("&Sobre o YorkFolio Desktop", self.about, "help-about")
+        self.act_about_qt = self._action("Sobre o &Qt", QApplication.aboutQt, "help-about")
+
+        file_menu = self.menuBar().addMenu("&Arquivo")
+        file_menu.addActions([self.act_import])
+        file_menu.addSeparator()
+        file_menu.addAction(self.act_quit)
+
+        view_menu = self.menuBar().addMenu("&Exibir")
+        view_menu.addActions([self.act_market, self.act_history])
+        view_menu.addSeparator()
+        theme_menu = view_menu.addMenu(QIcon.fromTheme("preferences-desktop-color"), "&Tema de cores")
+        self.theme_group = QActionGroup(self)
+        current = self.settings.value("theme", "system")
+        for mode, label in (("system", "Seguir o sistema"), ("light", "Claro"), ("dark", "Escuro")):
+            act = self._action(label, lambda m=mode: self.set_theme(m), checkable=True)
+            act.setChecked(mode == current)
+            self.theme_group.addAction(act)
+            theme_menu.addAction(act)
+        for i in range(self.tabs.count()):
+            if i == 0:
+                view_menu.addSeparator()
+            act = self._action(self.tabs.tabText(i), lambda i=i: self.tabs.setCurrentIndex(i), shortcut=f"Ctrl+{i + 1}")
+            view_menu.addAction(act)
+
+        help_menu = self.menuBar().addMenu("A&juda")
+        help_menu.addActions([self.act_about, self.act_about_qt])
+
+        bar = QToolBar("Ações")
+        bar.setMovable(False)
+        bar.setToolButtonStyle(Qt.ToolButtonFollowStyle)
+        bar.addActions([self.act_import, self.act_market])
+        self.addToolBar(bar)
 
     # ------------------------------------------------------------ context API used by tabs
     def message(self, text: str, error: bool = False) -> None:
@@ -156,12 +193,13 @@ class MainWindow(QMainWindow):
             fields = dlg.fields
             self.run(lambda con: db.update_asset(con, code, fields), reload=True)
 
-    def toggle_theme(self) -> None:
-        dark = not self.settings.value("dark", False, type=bool)
-        self.settings.setValue("dark", dark)
-        theme.apply(QApplication.instance(), dark)
-        if self.state:
-            self._show_state(self.state)
+    def set_theme(self, mode: str) -> None:
+        self.settings.setValue("theme", mode)
+        theme.apply(mode)
+
+    def closeEvent(self, e):
+        self.settings.setValue("geometry", self.saveGeometry())
+        super().closeEvent(e)
 
     def about(self) -> None:
         from .. import native

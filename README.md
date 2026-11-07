@@ -36,6 +36,15 @@ Importing: [investidor.b3.com.br](https://www.investidor.b3.com.br) → Extratos
 `F5` refreshes quotes. The database lives in `$YORKFOLIO_DATA`, or `~/.local/share/yorkfolio-desktop/portfolio.db`
 (`~/.var/app/io.github.rarrifano.YorkFolioDesktop/data/…` in the Flatpak); `--db PATH` overrides it.
 
+## KDE integration
+
+Targets Plasma first: no custom style sheet or palette, so Breeze (or whatever style you use) draws every
+widget and the app follows the system color scheme live (*Exibir → Tema de cores* can force light/dark).
+Standard menu bar (Arquivo/Exibir/Ajuda), freedesktop theme icons, standard shortcuts (Ctrl+O, F5, Ctrl+Q,
+Ctrl+1…6 for tabs), file dialogs through the desktop portal, remembered window geometry, and the desktop-file
+name set so Wayland shows the right icon and groups windows in the task manager. Gain/loss colors use Breeze's
+positive/negative tones; charts take their colors from the active palette.
+
 ## Flatpak
 
 ```bash

@@ -5,13 +5,14 @@ from __future__ import annotations
 from datetime import date
 
 from PySide6.QtCore import QDate, Qt
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
     QCheckBox, QComboBox, QDateEdit, QGridLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit,
     QMessageBox, QPushButton, QScrollArea, QVBoxLayout, QWidget,
 )  # fmt: skip
 
 from .. import db, engine, service
-from . import fmt
+from . import fmt, theme
 from .models import Column, make_table, row_at
 from .widgets import muted
 
@@ -39,7 +40,8 @@ class DadosTab(QWidget):
             "(quanto mais histórico, melhor) e baixe em Excel.\n3. Importe os arquivos aqui (ou arraste-os para a janela). "
             "Arquivos repetidos ou períodos sobrepostos são ignorados com segurança.", wrap=True))
         btn = QPushButton("Escolher arquivos .xlsx…")
-        btn.setObjectName("primary")
+        btn.setIcon(QIcon.fromTheme("document-open"))
+        btn.setDefault(True)
         btn.clicked.connect(ctx.import_dialog)
         bl.addWidget(btn, 0, Qt.AlignLeft)
         self.results = QLabel()
@@ -85,7 +87,7 @@ class DadosTab(QWidget):
             grid.setColumnStretch(col, 1)
         ml.addLayout(grid)
         add = QPushButton("Adicionar lançamento")
-        add.setObjectName("primary")
+        add.setIcon(QIcon.fromTheme("list-add"))
         add.clicked.connect(self._add_manual)
         ml.addWidget(add, 0, Qt.AlignLeft)
         cols = [
@@ -97,7 +99,7 @@ class DadosTab(QWidget):
         self.manual_view.setMinimumHeight(160)
         ml.addWidget(self.manual_view)
         delete = QPushButton("Excluir lançamento selecionado")
-        delete.setObjectName("danger")
+        delete.setIcon(QIcon.fromTheme("edit-delete"))
         delete.clicked.connect(self._delete_manual)
         ml.addWidget(delete, 0, Qt.AlignLeft)
         lay.addWidget(box)
@@ -125,13 +127,12 @@ class DadosTab(QWidget):
         self.info = muted("")
         dl.addWidget(self.info)
         row = QHBoxLayout()
-        for text, slot, name in (
-            ("Rebaixar histórico de preços", lambda: ctx.refresh_market(force=True), ""),
-            ("Apagar extratos importados", lambda: self._reset(False), "danger"),
-            ("Apagar tudo (lançamentos, metas e notas)", lambda: self._reset(True), "danger"),
+        for text, slot, icon in (
+            ("Rebaixar histórico de preços", lambda: ctx.refresh_market(force=True), "view-refresh"),
+            ("Apagar extratos importados", lambda: self._reset(False), "edit-clear"),
+            ("Apagar tudo (lançamentos, metas e notas)", lambda: self._reset(True), "edit-delete"),
         ):
-            b = QPushButton(text)
-            b.setObjectName(name)
+            b = QPushButton(QIcon.fromTheme(icon), text)
             b.clicked.connect(slot)
             row.addWidget(b)
         row.addStretch()
@@ -171,7 +172,7 @@ class DadosTab(QWidget):
         lines = []
         for r in results:
             if r.get("error"):
-                lines.append(f"<span style='color:#b91c1c'>{r['file']}: {r['error']}</span>")
+                lines.append(f"<span style='color:{theme.colors()['neg']}'>{r['file']}: {r['error']}</span>")
             else:
                 kind = "Negociação" if r["kind"] == "negociacao" else "Movimentação"
                 lines.append(f"{r['file']} — {kind}: {r['rows']} linhas, <b>{r['inserted']} novas</b>, {r['duplicates']} já existentes")

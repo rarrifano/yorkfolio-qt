@@ -1,32 +1,49 @@
 from __future__ import annotations
 
+from PySide6.QtGui import QColor, QPalette
 from PySide6.QtWidgets import QFrame, QHBoxLayout, QLabel, QPushButton, QVBoxLayout, QWidget
 
 from . import theme
 
 
+def _font(label: QLabel, scale: float = 1.0, bold: bool = False) -> None:
+    f = label.font()
+    f.setPointSizeF(f.pointSizeF() * scale)
+    f.setBold(bold)
+    label.setFont(f)
+
+
+def _dim(label: QLabel) -> None:
+    label.setForegroundRole(QPalette.PlaceholderText)
+
+
 class Card(QFrame):
+    """Native framed panel with a small title, a big value and a subtitle."""
+
     def __init__(self, title: str, parent=None):
         super().__init__(parent)
-        self.setObjectName("card")
+        self.setFrameShape(QFrame.StyledPanel)
+        self.setAutoFillBackground(True)
+        self.setBackgroundRole(QPalette.Base)
         lay = QVBoxLayout(self)
         lay.setContentsMargins(14, 10, 14, 10)
         lay.setSpacing(2)
-        self.title = QLabel(title)
-        self.title.setObjectName("cardTitle")
-        self.value = QLabel("–")
-        self.value.setObjectName("cardValue")
-        self.sub = QLabel("")
-        self.sub.setObjectName("cardSub")
+        self.title, self.value, self.sub = QLabel(title), QLabel("–"), QLabel("")
+        _dim(self.title)
+        _dim(self.sub)
+        _font(self.title, 0.9)
+        _font(self.sub, 0.9)
+        _font(self.value, 1.6, bold=True)
         for w in (self.title, self.value, self.sub):
             lay.addWidget(w)
 
     def set(self, value: str, sub: str = "", sign: float | None = None):
         self.value.setText(value)
         self.sub.setText(sub)
-        c = theme.colors()
-        color = c["text"] if not sign else (c["pos"] if sign > 0 else c["neg"])
-        self.value.setStyleSheet(f"color: {color};")
+        color = theme.colors()["text"] if not sign else (theme.colors()["pos"] if sign > 0 else theme.colors()["neg"])
+        pal = self.value.palette()
+        pal.setColor(QPalette.WindowText, QColor(color))
+        self.value.setPalette(pal)
 
 
 def cards_row(cards: list[Card]) -> QWidget:
@@ -40,13 +57,13 @@ def cards_row(cards: list[Card]) -> QWidget:
 
 def heading(text: str) -> QLabel:
     label = QLabel(text)
-    label.setObjectName("heading")
+    _font(label, 1.1, bold=True)
     return label
 
 
 def muted(text: str, wrap: bool = True) -> QLabel:
     label = QLabel(text)
-    label.setObjectName("muted")
+    _dim(label)
     label.setWordWrap(wrap)
     return label
 

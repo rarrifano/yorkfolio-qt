@@ -3,8 +3,9 @@
 from __future__ import annotations
 
 from PySide6.QtCore import Qt
+from PySide6.QtGui import QIcon
 from PySide6.QtWidgets import (
-    QAbstractItemView, QHBoxLayout, QLabel, QLineEdit, QPushButton, QSplitter, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget,
+    QAbstractItemView, QHBoxLayout, QHeaderView, QLabel, QLineEdit, QPushButton, QSplitter, QTreeWidget, QTreeWidgetItem, QVBoxLayout, QWidget,
 )  # fmt: skip
 
 from .. import db, engine
@@ -32,10 +33,11 @@ class BalanceamentoTab(QWidget):
         self.tree.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.tree.itemDoubleClicked.connect(lambda item, col: col == COL_EDIT and self.tree.editItem(item, col))
         self.tree.header().setStretchLastSection(False)
-        self.tree.setColumnWidth(0, 200)
+        self.tree.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         ll.addWidget(self.tree, 1)
         save = QPushButton("Salvar metas e notas")
-        save.setObjectName("primary")
+        save.setIcon(QIcon.fromTheme("document-save"))
+        save.setDefault(True)
         save.clicked.connect(self._save)
         ll.addWidget(save)
         split.addWidget(left)
@@ -56,7 +58,7 @@ class BalanceamentoTab(QWidget):
         self.plan = QTreeWidget()
         self.plan.setHeaderLabels(["Classe / ativo", "Qtd", "Preço", "Valor"])
         self.plan.setAlternatingRowColors(True)
-        self.plan.setColumnWidth(0, 200)
+        self.plan.header().setSectionResizeMode(QHeaderView.ResizeToContents)
         rl.addWidget(self.plan, 1)
         self.plan_note = muted("")
         rl.addWidget(self.plan_note)

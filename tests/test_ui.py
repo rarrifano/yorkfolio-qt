@@ -52,7 +52,7 @@ class WindowTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.path = Path(self.tmp.name) / "p.db"
-        theme.apply(app, False)
+        theme.apply("light")
 
     def tearDown(self):
         self.tmp.cleanup()
