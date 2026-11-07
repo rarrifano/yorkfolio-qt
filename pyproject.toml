@@ -3,7 +3,7 @@
 
 [project]
 name = "yorkfolio-qt"
-version = "0.1.0"
+version = "0.1.1"
 description = "Desktop (C++ core + Python/Qt) portfolio tracker for B3 investors"
 requires-python = ">=3.10"
 dependencies = ["PySide6-Essentials>=6.6"]

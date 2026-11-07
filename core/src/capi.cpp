@@ -38,7 +38,7 @@ char* guarded(F&& f) {
 
 extern "C" {
 
-const char* yf_version(void) { return "0.1.0"; }
+const char* yf_version(void) { return "0.1.1"; }
 
 void yf_free(char* s) { std::free(s); }
 
