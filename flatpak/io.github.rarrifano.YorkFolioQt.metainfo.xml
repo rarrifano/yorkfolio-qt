@@ -26,6 +26,24 @@
   <branding><color type="primary" scheme_preference="light">#3daee9</color><color type="primary" scheme_preference="dark">#1d6f9b</color></branding>
   <launchable type="desktop-id">io.github.rarrifano.YorkFolioQt.desktop</launchable>
   <provides><binary>yorkfolio-qt</binary></provides>
+  <screenshots>
+    <screenshot type="default">
+      <caption>Net worth over time, allocation and positions with average price</caption>
+      <image>https://raw.githubusercontent.com/rarrifano/yorkfolio-qt/v0.1.1/docs/screenshots/carteira.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Proventos (dividends and other income) by month, year, type and asset</caption>
+      <image>https://raw.githubusercontent.com/rarrifano/yorkfolio-qt/v0.1.1/docs/screenshots/proventos.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Allocation targets and a suggested aporte (new investment)</caption>
+      <image>https://raw.githubusercontent.com/rarrifano/yorkfolio-qt/v0.1.1/docs/screenshots/balanceamento.png</image>
+    </screenshot>
+    <screenshot>
+      <caption>Income tax: monthly results and DARF, plus the annual Bens e Direitos</caption>
+      <image>https://raw.githubusercontent.com/rarrifano/yorkfolio-qt/v0.1.1/docs/screenshots/ir.png</image>
+    </screenshot>
+  </screenshots>
   <categories><category>Office</category><category>Finance</category><category>KDE</category></categories>
   <content_rating type="oars-1.1"/>
   <supports><control>pointing</control><control>keyboard</control></supports>

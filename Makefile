@@ -23,7 +23,7 @@ else
 endif
 LIB     := yorkfolio_qt/libyorkfolio_core.$(LIBEXT)
 
-.PHONY: help all core venv run test test-core test-py clean flatpak flatpak-install flatpak-run
+.PHONY: help all core venv run test test-core test-py clean flatpak flatpak-install flatpak-run screenshots
 help:  ## list targets
 	@grep -E '^[a-z-]+:.*##' $(MAKEFILE_LIST) | sed 's/:.*##/\t/'
 
@@ -70,6 +70,20 @@ flatpak-install: flatpak  ## install the bundle for the current user
 
 flatpak-run:  ## run the installed flatpak
 	flatpak run $(FLATPAK_ID)
+
+# Breeze on a fresh Plasma profile: offscreen, KDE platform theme, empty config, no session bus (so the
+# portal cannot hand over your own colors/fonts), Noto Sans copied from the host (not in the runtime).
+# Uses the Qt/PySide6 of the Flatpak build.
+screenshots:  ## regenerate docs/screenshots/*.png (run `make flatpak` first)
+	rm -rf build/fonts docs/screenshots/.ok && mkdir -p build/fonts
+	fc-list -f '%{file}\n' 'Noto Sans' | sort -u | xargs -r cp -t build/fonts/ || true
+	-$(BUILDER) --run flatpak-build flatpak/$(FLATPAK_ID).yml sh -c '\
+	  export XDG_CONFIG_HOME=$$(mktemp -d) QT_QPA_PLATFORM=offscreen QT_QPA_PLATFORMTHEME=kde \
+	    DBUS_SESSION_BUS_ADDRESS=unix:path=/nonexistent SCREENSHOT_FONTS=build/fonts \
+	    YORKFOLIO_CORE=/app/share/yorkfolio-qt/yorkfolio_qt/libyorkfolio_core.so; \
+	  exec python3 tools/screenshots.py docs/screenshots'
+	@test -f docs/screenshots/.ok || { echo "screenshots failed (see above)"; exit 1; }
+	@rm -f docs/screenshots/.ok
 
 clean:  ## remove build output
 	rm -rf build $(LIB) flatpak-build flatpak-repo .flatpak-builder $(FLATPAK_ID).flatpak

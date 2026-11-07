@@ -5,6 +5,8 @@
 <p align="center">A desktop, holder-style portfolio tracker for B3 investors.<br>
 <b>C++ core</b> · <b>Python</b> · <b>Qt (PySide6)</b> · Flatpak</p>
 
+<p align="center"><img src="docs/screenshots/carteira.png" width="800" alt="Carteira tab: net worth over time, allocation and positions"></p>
+
 Desktop edition of [YorkFolio](../yorkfolio): the same B3 import, preço médio, returns vs CDI/Ibovespa,
 proventos, balanceamento/aporte and IR (DARF, Bens e Direitos), but as a native app with no server,
 no login and no browser. Data stays in a local SQLite file. UI in Brazilian Portuguese.
@@ -63,6 +65,9 @@ flatpak run io.github.rarrifano.YorkFolioQt
 
 Built on `org.kde.Platform//6.10` + `io.qt.PySide.BaseApp`. Permissions: Wayland/X11, GPU, network
 (quotes). No filesystem access: files are picked through the portal.
+
+`make screenshots` regenerates the AppStream screenshots in `docs/screenshots/` from the demo portfolio, inside
+the Flatpak build (run `make flatpak` first) with Breeze and default Plasma settings, whatever your own theme is.
 
 ## Tests
 
