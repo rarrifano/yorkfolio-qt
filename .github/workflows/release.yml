@@ -1,0 +1,36 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:  # re-attach the bundle to an existing release
+    inputs:
+      tag:
+        description: Release tag to build (e.g. v0.1.0)
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  flatpak:
+    name: Build and attach Flatpak bundle
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:kde-6.10
+      options: --privileged
+    env:
+      TAG: ${{ github.event.release.tag_name || inputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ env.TAG }}
+      - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          bundle: yorkfolio-qt.flatpak
+          manifest-path: flatpak/io.github.rarrifano.YorkFolioQt.yml
+          cache-key: flatpak-release-${{ github.sha }}
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.TAG }}
+          files: yorkfolio-qt.flatpak
