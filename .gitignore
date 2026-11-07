@@ -1,0 +1,26 @@
+# personal financial data: never commit
+*.db
+*.db-journal
+*.xlsx
+*.xls
+*.csv
+
+# build output
+build/
+*.so
+*.dylib
+*.dll
+.flatpak-builder/
+flatpak-build/
+flatpak-repo/
+*.flatpak
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.ruff_cache/
+
+.idea/
+.vscode/
+.DS_Store

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=YorkFolio Desktop
+GenericName=Portfolio tracker
+Comment=Holder-style portfolio tracker for B3 investors
+Comment[pt_BR]=Carteira de investimentos para investidores da B3
+Exec=yorkfolio-desktop
+Icon=io.github.rarrifano.YorkFolioDesktop
+Terminal=false
+Categories=Office;Finance;
+Keywords=portfolio;investments;B3;bolsa;stocks;carteira;
+StartupWMClass=yorkfolio-desktop
