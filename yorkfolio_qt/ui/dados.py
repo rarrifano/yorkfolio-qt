@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Dados tab: B3 import, manual entries, warnings, filters and maintenance."""
 
 from __future__ import annotations

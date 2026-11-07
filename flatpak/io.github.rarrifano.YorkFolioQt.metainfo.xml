@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-FileCopyrightText: 2026 rarrifano -->
+<!-- SPDX-License-Identifier: CC0-1.0 -->
 <component type="desktop-application">
   <id>io.github.rarrifano.YorkFolioQt</id>
   <name>YorkFolio Desktop</name>
@@ -19,6 +21,9 @@
     </p>
     <p>A C++ core computes positions, taxes and the aporte plan; the interface is written in Python with Qt.</p>
   </description>
+  <url type="vcs-browser">https://github.com/rarrifano/yorkfolio-qt</url>
+  <keywords><keyword>portfolio</keyword><keyword>B3</keyword><keyword>carteira</keyword><keyword>investimentos</keyword></keywords>
+  <branding><color type="primary" scheme_preference="light">#3daee9</color><color type="primary" scheme_preference="dark">#1d6f9b</color></branding>
   <launchable type="desktop-id">io.github.rarrifano.YorkFolioQt.desktop</launchable>
   <provides><binary>yorkfolio-qt</binary></provides>
   <categories><category>Office</category><category>Finance</category><category>KDE</category></categories>

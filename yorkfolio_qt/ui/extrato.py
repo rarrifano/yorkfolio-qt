@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Extrato tab: every ledger row and how it was interpreted."""
 
 from __future__ import annotations

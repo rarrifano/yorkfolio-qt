@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Application services shared by the desktop UI (all functions take an open sqlite3 connection)."""
 
 from __future__ import annotations

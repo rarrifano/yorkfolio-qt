@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Portfolio engine (pure functions): ledger -> Book (positions, sales, proventos, cash flows)
 -> carteira, proventos and balanceamento."""
 

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """IR tab: monthly apuração / DARF and the annual declaration helper."""
 
 from __future__ import annotations

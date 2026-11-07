@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Market data over HTTP (stdlib only): Yahoo Finance, Banco Central (SGS) and Tesouro Transparente."""
 
 from __future__ import annotations

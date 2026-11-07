@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """The C++ core must agree with the original pure-Python engine (kept in tests/reference)."""
 
 import random

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 name: CI
 on: [push, pull_request]
 jobs:
@@ -10,6 +13,14 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y libegl1 libxkbcommon0 libdbus-1-3 libfontconfig1 libgl1
       - run: make venv
       - run: make test
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: fsfe/reuse-action@v5
+      - run: sudo apt-get update && sudo apt-get install -y appstream desktop-file-utils
+      - run: desktop-file-validate flatpak/io.github.rarrifano.YorkFolioQt.desktop
+      - run: appstreamcli validate --no-net flatpak/io.github.rarrifano.YorkFolioQt.metainfo.xml
   flatpak:
     runs-on: ubuntu-latest
     container:

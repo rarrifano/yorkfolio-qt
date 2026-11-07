@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 rarrifano
+// SPDX-License-Identifier: MIT
+
 // Weighted-average-cost position engine.
 //
 // A Book applies ledger events in date order and keeps positions, realized sales (for IR),

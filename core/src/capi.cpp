@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 rarrifano
+// SPDX-License-Identifier: MIT
+
 #include "yorkfolio/capi.h"
 
 #include <cstdlib>

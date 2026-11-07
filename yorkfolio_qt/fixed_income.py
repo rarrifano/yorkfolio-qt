@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Fixed income valuation helpers (pure): Tesouro Direto prices and indexer accrual.
 
 Series come from the market cache as sorted lists of (iso_date, value):

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Synthetic demo portfolio (random, not real data) for screenshots, development and UI tests.
 
     python -m yorkfolio_qt.demo /tmp/demo.db && python -m yorkfolio_qt --db /tmp/demo.db

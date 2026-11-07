@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 app-id: io.github.rarrifano.YorkFolioQt
 runtime: org.kde.Platform
 runtime-version: '6.10'

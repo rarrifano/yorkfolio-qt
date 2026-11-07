@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """A small table model driven by column specs, with sorting and text filtering."""
 
 from __future__ import annotations

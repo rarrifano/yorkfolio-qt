@@ -45,6 +45,11 @@ Ctrl+1…6 for tabs), file dialogs through the desktop portal, remembered window
 name set so Wayland shows the right icon and groups windows in the task manager. Gain/loss colors use Breeze's
 positive/negative tones; charts take their colors from the active palette.
 
+Also: REUSE-compliant licensing (SPDX headers, `LICENSES/`, `REUSE.toml`), AppStream metadata and desktop file
+validated in CI, Qt's own translations loaded for the user's locale, F11 full screen, accessible names on the
+custom-painted charts, and `.xlsx` files accepted as command-line arguments / "Open with".
+The UI strings themselves are Portuguese-only for now (no `tr()`/translation catalogs yet).
+
 ## Flatpak
 
 ```bash

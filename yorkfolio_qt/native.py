@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """ctypes bridge to the C++ core (libyorkfolio_core).
 
 The core speaks JSON over a plain C ABI (core/include/yorkfolio/capi.h), so no compiler,

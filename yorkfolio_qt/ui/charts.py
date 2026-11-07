@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Lightweight QPainter charts: stacked areas + lines (history) and bars (proventos)."""
 
 from __future__ import annotations
@@ -37,6 +40,7 @@ class Chart(QWidget):
         self.setMinimumHeight(height)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         self.setMouseTracking(True)
+        self.setAccessibleName("Gráfico")
         self.labels: list[str] = []
         self.stacks: list[dict] = []
         self.lines: list[dict] = []
@@ -51,6 +55,8 @@ class Chart(QWidget):
         self.labels, self.stacks, self.lines, self.bars = list(labels), list(stacks), list(lines), list(bars)
         self.yfmt = yfmt or self.yfmt
         self.tip, self.zero_baseline, self._hover = tip, zero_baseline, None
+        if self.tip and self.labels:  # screen readers: first and last data point
+            self.setAccessibleDescription(f"{self.tip(0)} … {self.tip(len(self.labels) - 1)}".replace("<br>", "; "))
         self.update()
 
     # ------------------------------------------------------------ geometry
@@ -196,6 +202,8 @@ class StackedBar(QWidget):
 
     def set_segments(self, segments):
         self.segments = [s for s in segments if s[1] > 0]
+        self.setAccessibleName("Alocação")
+        self.setAccessibleDescription("; ".join(f"{s[0]} {s[1] / (sum(x[1] for x in self.segments) or 1):.0%}" for s in self.segments))
         self.update()
 
     def paintEvent(self, _):
@@ -210,6 +218,6 @@ class StackedBar(QWidget):
             p.setBrush(color)
             p.drawRect(QRectF(x, 0, max(seg_w - 1, 1), self.height()))
             if seg_w > 60:
-                p.setPen(QColor("white"))
+                p.setPen(QColor("black") if color.lightness() > 150 else QColor("white"))
                 p.drawText(QRectF(x + 6, 0, seg_w - 8, self.height()), Qt.AlignVCenter | Qt.AlignLeft, label)
             x += seg_w

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """pt-BR number/date formatting (no locale dependency)."""
 
 from __future__ import annotations

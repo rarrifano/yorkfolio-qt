@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Asset types: default class, quote currency and Yahoo Finance symbol pattern."""
 
 from __future__ import annotations

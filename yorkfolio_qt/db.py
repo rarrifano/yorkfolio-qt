@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """SQLite persistence: raw B3 rows, manual entries, user settings and the market-data cache."""
 
 from __future__ import annotations

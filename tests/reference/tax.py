@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """IR (Brazilian income tax) support for B3 variable income: monthly apuração/DARF and the
 annual declaration helper. A decision-support tool, not tax advice.
 

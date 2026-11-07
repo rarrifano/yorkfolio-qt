@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 [project]
 name = "yorkfolio-qt"
 version = "0.1.0"

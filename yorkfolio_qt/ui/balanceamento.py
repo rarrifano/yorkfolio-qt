@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Balanceamento tab: targets per class, notas per asset and the aporte plan."""
 
 from __future__ import annotations

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 # YorkFolio Desktop — C++ core + Python/Qt app
 PY      ?= python3
 VENV    ?= .venv

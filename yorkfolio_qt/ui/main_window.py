@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 from pathlib import Path
@@ -27,7 +30,7 @@ class MainWindow(QMainWindow):
         self.state: dict | None = None
         self.import_results: list[dict] = []
         self._pending = 0
-        self.settings = QSettings("yorkfolio", "yorkfolio-qt")
+        self.settings = QSettings()
         self.setWindowTitle("YorkFolio Desktop")
         self.setWindowIcon(QIcon(str(LOGO)))
         self.resize(1280, 860)
@@ -66,6 +69,7 @@ class MainWindow(QMainWindow):
         self.act_quit = self._action("&Sair", self.close, "application-exit", SK.Quit)
         self.act_market = self._action("&Atualizar cotações", lambda: self.refresh_market(), "view-refresh", SK.Refresh)
         self.act_history = self._action("Rebaixar &histórico de preços", lambda: self.refresh_market(force=True), "download")
+        self.act_fullscreen = self._action("Tela &cheia", self.toggle_fullscreen, "view-fullscreen", "F11")
         self.act_about = self._action("&Sobre o YorkFolio Desktop", self.about, "help-about")
         self.act_about_qt = self._action("Sobre o &Qt", QApplication.aboutQt, "help-about")
 
@@ -76,6 +80,7 @@ class MainWindow(QMainWindow):
 
         view_menu = self.menuBar().addMenu("&Exibir")
         view_menu.addActions([self.act_market, self.act_history])
+        view_menu.addAction(self.act_fullscreen)
         view_menu.addSeparator()
         theme_menu = view_menu.addMenu(QIcon.fromTheme("preferences-desktop-color"), "&Tema de cores")
         self.theme_group = QActionGroup(self)
@@ -201,13 +206,18 @@ class MainWindow(QMainWindow):
         self.settings.setValue("geometry", self.saveGeometry())
         super().closeEvent(e)
 
+    def toggle_fullscreen(self) -> None:
+        self.setWindowState(self.windowState() ^ Qt.WindowFullScreen)
+
     def about(self) -> None:
         from .. import native
 
         QMessageBox.about(
             self, "YorkFolio Desktop",
             f"<b>YorkFolio Desktop {__version__}</b><br>Carteira de investimentos para investidores da B3.<br>"
-            f"Núcleo C++ {native.version()} · Python · Qt/PySide6<br><br>Banco de dados:<br>{self.db_path}",
+            f"Núcleo C++ {native.version()} · Python · Qt/PySide6<br>"
+            f"Licença: MIT · <a href='https://github.com/rarrifano/yorkfolio-qt'>github.com/rarrifano/yorkfolio-qt</a>"
+            f"<br><br>Banco de dados:<br>{self.db_path}",
         )  # fmt: skip
 
     # ------------------------------------------------------------ drag & drop

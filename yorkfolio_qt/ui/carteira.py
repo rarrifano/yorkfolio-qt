@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Carteira tab: summary, history charts, allocation and positions."""
 
 from __future__ import annotations

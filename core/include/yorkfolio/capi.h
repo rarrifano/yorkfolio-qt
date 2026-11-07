@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 rarrifano
+// SPDX-License-Identifier: MIT
+
 /* Plain C interface of the YorkFolio core, meant for ctypes/FFI.
  * Every function taking or returning text uses UTF-8 JSON. Returned strings are owned by the
  * caller and must be released with yf_free(). Errors are reported as {"error": "message"}. */

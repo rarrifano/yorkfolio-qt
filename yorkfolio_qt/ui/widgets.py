@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 from __future__ import annotations
 
 from PySide6.QtGui import QColor, QPalette

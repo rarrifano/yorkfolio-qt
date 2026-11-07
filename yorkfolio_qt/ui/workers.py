@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Run blocking work (SQLite, network, big computations) off the UI thread."""
 
 from __future__ import annotations

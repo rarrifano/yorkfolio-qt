@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Headless UI smoke tests (QT_QPA_PLATFORM=offscreen) on a synthetic portfolio."""
 
 import os

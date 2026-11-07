@@ -1,1 +1,4 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 PySide6-Essentials>=6.6

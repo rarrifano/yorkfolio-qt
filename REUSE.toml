@@ -1,0 +1,21 @@
+version = 1
+SPDX-PackageName = "yorkfolio-qt"
+SPDX-PackageDownloadLocation = "https://github.com/rarrifano/yorkfolio-qt"
+
+[[annotations]]
+path = ["flatpak/*.desktop", "flatpak/*.svg", "flatpak/yorkfolio-qt", "yorkfolio_qt/logo.svg", "LICENSE", "README.md", ".github/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 rarrifano"
+SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = "flatpak/*.metainfo.xml"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 rarrifano"
+SPDX-License-Identifier = "CC0-1.0"
+
+[[annotations]]
+path = "core/third_party/nlohmann/json.hpp"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2013-2022 Niels Lohmann"
+SPDX-License-Identifier = "MIT"

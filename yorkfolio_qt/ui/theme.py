@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Native look: follow the desktop's style (Breeze on Plasma) and color scheme.
 
 No style sheet and no custom palette: widgets are drawn by the platform style. "Tema" only asks Qt

@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Monthly history (pure): patrimônio by class, invested cost, returns and benchmarks."""
 
 from __future__ import annotations

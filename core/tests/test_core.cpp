@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 rarrifano
+// SPDX-License-Identifier: MIT
+
 // Minimal dependency-free tests for the C++ core.
 #include <cmath>
 #include <cstdio>

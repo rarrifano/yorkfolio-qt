@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Valuation of positions now (carteira) and at past month ends (history)."""
 
 from __future__ import annotations

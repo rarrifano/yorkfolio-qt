@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Parsers for B3 "Área do Investidor" exports (Extratos → Baixar → Excel).
 
 * negociacao-*.xlsx    trades: Data do Negócio, Tipo de Movimentação, Mercado, Código de Negociação…

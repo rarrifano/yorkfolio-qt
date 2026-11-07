@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2026 rarrifano
+# SPDX-License-Identifier: MIT
+
 """Minimal, dependency-free .xlsx reader: first worksheet -> list of rows."""
 
 from __future__ import annotations

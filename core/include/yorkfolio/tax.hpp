@@ -1,3 +1,6 @@
+// SPDX-FileCopyrightText: 2026 rarrifano
+// SPDX-License-Identifier: MIT
+
 // Brazilian IR (income tax) monthly apuração for B3 variable income.
 #pragma once
 
