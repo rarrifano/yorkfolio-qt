@@ -11,9 +11,9 @@ os.environ.setdefault("QT_QPA_PLATFORM", "offscreen")
 from PySide6.QtWidgets import QApplication  # noqa: E402
 
 from tests.test_logic import MOV_HEADER, NEG_HEADER, make_xlsx  # noqa: E402
-from yorkfolio_desktop import db, demo, native  # noqa: E402
-from yorkfolio_desktop.ui import fmt, theme  # noqa: E402
-from yorkfolio_desktop.ui.main_window import MainWindow  # noqa: E402
+from yorkfolio_qt import db, demo, native  # noqa: E402
+from yorkfolio_qt.ui import fmt, theme  # noqa: E402
+from yorkfolio_qt.ui.main_window import MainWindow  # noqa: E402
 
 app = QApplication.instance() or QApplication([])
 

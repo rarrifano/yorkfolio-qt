@@ -19,6 +19,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
-          bundle: io.github.rarrifano.YorkFolioDesktop.flatpak
-          manifest-path: flatpak/io.github.rarrifano.YorkFolioDesktop.yml
+          bundle: io.github.rarrifano.YorkFolioQt.flatpak
+          manifest-path: flatpak/io.github.rarrifano.YorkFolioQt.yml
           cache-key: flatpak-${{ github.sha }}

@@ -1,3 +1,0 @@
-#!/bin/sh
-export PYTHONPATH="/app/share/yorkfolio-desktop${PYTHONPATH:+:$PYTHONPATH}"
-exec python3 -m yorkfolio_desktop "$@"

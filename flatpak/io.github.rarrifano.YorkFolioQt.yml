@@ -1,0 +1,34 @@
+app-id: io.github.rarrifano.YorkFolioQt
+runtime: org.kde.Platform
+runtime-version: '6.10'
+sdk: org.kde.Sdk
+base: io.qt.PySide.BaseApp
+base-version: '6.10'
+command: yorkfolio-qt
+
+finish-args:
+  - --share=ipc
+  - --socket=wayland
+  - --socket=fallback-x11
+  - --device=dri
+  - --share=network  # quotes (Yahoo Finance), Tesouro Transparente and Banco Central
+  # No filesystem access: B3 statements are picked through the file chooser portal.
+
+modules:
+  - name: yorkfolio-qt
+    buildsystem: simple
+    build-commands:
+      # C++ core: shared library with a C ABI, loaded from Python through ctypes
+      - make core CXXFLAGS="-O2" CXX=g++
+      - install -d /app/share/yorkfolio-qt
+      - cp -r yorkfolio_qt /app/share/yorkfolio-qt/
+      - find /app/share/yorkfolio-qt -name __pycache__ -prune -exec rm -rf {} +
+      - install -Dm755 flatpak/yorkfolio-qt /app/bin/yorkfolio-qt
+      - install -Dm644 flatpak/io.github.rarrifano.YorkFolioQt.desktop -t /app/share/applications
+      - install -Dm644 flatpak/io.github.rarrifano.YorkFolioQt.metainfo.xml -t /app/share/metainfo
+      - install -Dm644 flatpak/io.github.rarrifano.YorkFolioQt.svg -t /app/share/icons/hicolor/scalable/apps
+      - install -Dm644 LICENSE -t /app/share/licenses/io.github.rarrifano.YorkFolioQt
+    sources:
+      - type: dir
+        path: ..
+        skip: [.venv, .git, build, .flatpak-builder, flatpak-build, flatpak-repo, __pycache__, '*.flatpak']

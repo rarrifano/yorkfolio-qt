@@ -1,12 +1,12 @@
 [project]
-name = "yorkfolio-desktop"
+name = "yorkfolio-qt"
 version = "0.1.0"
 description = "Desktop (C++ core + Python/Qt) portfolio tracker for B3 investors"
 requires-python = ">=3.10"
 dependencies = ["PySide6-Essentials>=6.6"]
 
 [project.scripts]
-yorkfolio-desktop = "yorkfolio_desktop.app:main"
+yorkfolio-qt = "yorkfolio_qt.app:main"
 
 [tool.ruff]
 line-length = 120

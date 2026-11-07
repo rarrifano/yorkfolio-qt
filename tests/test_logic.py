@@ -15,9 +15,9 @@ from pathlib import Path
 from unittest import mock
 from xml.sax.saxutils import escape
 
-from yorkfolio_desktop import b3, db, engine, fixed_income, history, market, tax
-from yorkfolio_desktop.engine import Position
-from yorkfolio_desktop.valuation import Valuer
+from yorkfolio_qt import b3, db, engine, fixed_income, history, market, tax
+from yorkfolio_qt.engine import Position
+from yorkfolio_qt.valuation import Valuer
 
 
 def make_xlsx(rows) -> bytes:

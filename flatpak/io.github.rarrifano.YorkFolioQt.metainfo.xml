@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>io.github.rarrifano.YorkFolioDesktop</id>
+  <id>io.github.rarrifano.YorkFolioQt</id>
   <name>YorkFolio Desktop</name>
   <summary>Holder-style portfolio tracker for B3 investors</summary>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT</project_license>
   <developer id="io.github.rarrifano"><name>rarrifano</name></developer>
-  <url type="homepage">https://github.com/rarrifano/yorkfolio-desktop</url>
-  <url type="bugtracker">https://github.com/rarrifano/yorkfolio-desktop/issues</url>
+  <url type="homepage">https://github.com/rarrifano/yorkfolio-qt</url>
+  <url type="bugtracker">https://github.com/rarrifano/yorkfolio-qt/issues</url>
   <description>
     <p>
       Import the Excel statements from the B3 investor portal and see your positions with average price,
@@ -19,8 +19,8 @@
     </p>
     <p>A C++ core computes positions, taxes and the aporte plan; the interface is written in Python with Qt.</p>
   </description>
-  <launchable type="desktop-id">io.github.rarrifano.YorkFolioDesktop.desktop</launchable>
-  <provides><binary>yorkfolio-desktop</binary></provides>
+  <launchable type="desktop-id">io.github.rarrifano.YorkFolioQt.desktop</launchable>
+  <provides><binary>yorkfolio-qt</binary></provides>
   <categories><category>Office</category><category>Finance</category><category>KDE</category></categories>
   <content_rating type="oars-1.1"/>
   <supports><control>pointing</control><control>keyboard</control></supports>

@@ -9,7 +9,7 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 
-APP_DIR = "yorkfolio-desktop"
+APP_DIR = "yorkfolio-qt"
 
 
 def data_dir() -> Path:

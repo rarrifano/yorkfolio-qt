@@ -18,7 +18,7 @@ else
   LIBEXT := so
   SOFLAG := -shared
 endif
-LIB     := yorkfolio_desktop/libyorkfolio_core.$(LIBEXT)
+LIB     := yorkfolio_qt/libyorkfolio_core.$(LIBEXT)
 
 .PHONY: help all core venv run test test-core test-py clean flatpak flatpak-install flatpak-run
 help:  ## list targets
@@ -26,7 +26,7 @@ help:  ## list targets
 
 all: core  ## build the C++ core
 
-core: $(LIB)  ## build the shared library into yorkfolio_desktop/
+core: $(LIB)  ## build the shared library into yorkfolio_qt/
 
 $(LIB): $(OBJ)
 	$(CXX) $(SOFLAG) -o $@ $^
@@ -40,7 +40,7 @@ venv:  ## create .venv with the Python dependencies (PySide6)
 	$(VPY) -m pip install -q -r requirements.txt
 
 run: core  ## start the desktop app
-	$(VPY) -m yorkfolio_desktop
+	$(VPY) -m yorkfolio_qt
 
 test-core: build/test_core  ## C++ unit tests
 	./build/test_core
@@ -54,7 +54,7 @@ test-py: core  ## Python tests (parity with the reference engine, services, UI s
 
 test: test-core test-py  ## everything
 
-FLATPAK_ID := io.github.rarrifano.YorkFolioDesktop
+FLATPAK_ID := io.github.rarrifano.YorkFolioQt
 BUILDER    ?= flatpak run org.flatpak.Builder
 
 flatpak:  ## build $(FLATPAK_ID).flatpak (needs flatpak-builder, org.kde.Sdk//6.10, io.qt.PySide.BaseApp//6.10)

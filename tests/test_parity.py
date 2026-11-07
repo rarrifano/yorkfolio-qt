@@ -6,7 +6,7 @@ from datetime import date, timedelta
 
 from tests.reference import engine as ref_engine
 from tests.reference import tax as ref_tax
-from yorkfolio_desktop import engine, tax
+from yorkfolio_qt import engine, tax
 
 CODES = [("PETR4", "acao"), ("VALE3", "acao"), ("HGLG11", "fii"), ("BOVA11", "etf"), ("AAPL", "stock"), ("BTC", "crypto")]
 

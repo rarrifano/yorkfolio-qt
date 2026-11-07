@@ -27,7 +27,7 @@ class MainWindow(QMainWindow):
         self.state: dict | None = None
         self.import_results: list[dict] = []
         self._pending = 0
-        self.settings = QSettings("yorkfolio", "yorkfolio-desktop")
+        self.settings = QSettings("yorkfolio", "yorkfolio-qt")
         self.setWindowTitle("YorkFolio Desktop")
         self.setWindowIcon(QIcon(str(LOGO)))
         self.resize(1280, 860)

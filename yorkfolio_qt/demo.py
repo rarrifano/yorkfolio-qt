@@ -1,6 +1,6 @@
 """Synthetic demo portfolio (random, not real data) for screenshots, development and UI tests.
 
-    python -m yorkfolio_desktop.demo /tmp/demo.db && python -m yorkfolio_desktop --db /tmp/demo.db
+    python -m yorkfolio_qt.demo /tmp/demo.db && python -m yorkfolio_qt --db /tmp/demo.db
 """
 
 from __future__ import annotations
